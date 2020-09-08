@@ -1,0 +1,25 @@
+{
+  "name": "node-db-connect",
+  "version": "1.0.0",
+  "description": "Database Connection Modules for Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drlorenesi/node-db-connect.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drlorenesi/node-db-connect/issues"
+  },
+  "homepage": "https://github.com/drlorenesi/node-db-connect#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mssql": "^6.2.1",
+    "pg": "^8.3.3"
+  }
+}
