@@ -14,7 +14,10 @@ const pool = new sql.ConnectionPool({
 const db = pool.connect();
 
 pool.on('error', (err) => {
-  console.log('The following error ocurred: ', err);
+  if (err) {
+    console.log('The following error ocurred: ', err);
+    return;
+  }
 });
 
 async function messageHandler() {
