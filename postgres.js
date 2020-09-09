@@ -9,16 +9,26 @@ const pool = new Pool({
   port: process.env.PGPORT,
 });
 
-// the pool will emit an error on behalf of any idle clients
-// it contains if a backend error or network partition happens
-pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err);
-  process.exit(-1);
+pool.connect(async (err, client) => {
+  if (err) console.log('Database error ->', err.message);
+  if (client) {
+    console.log(`- Connected to ${client.database} on ${client.host}`);
+  }
+  client.release(true);
 });
 
-pool.query('SELECT * FROM users WHERE id = $1', [1], (err, res) => {
-  if (err) {
-    throw err;
+async function testQuery() {
+  try {
+    const res1 = await pool.query('SELECT * FROM movies');
+    const res2 = await pool.query('SELECT * FROM movies WHERE movie_id = $1', [
+      1,
+    ]);
+    console.log(res1.rows);
+    console.log(res2.rows[0]);
+  } catch (err) {
+    console.log('Database error ->', err.message);
   }
-  console.log('user:', res.rows[0]);
-});
+}
+testQuery();
+
+module.exports = pool;
