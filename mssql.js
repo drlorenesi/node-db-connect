@@ -24,6 +24,16 @@ const pool = new sql.ConnectionPool({
   }
 })();
 
+// Pool function
+async function msPool() {
+  try {
+    const db = await pool.connect();
+    return db;
+  } catch (err) {
+    console.log('Database error -> ', err.message);
+  }
+}
+
 // Test query
 (async function () {
   try {
