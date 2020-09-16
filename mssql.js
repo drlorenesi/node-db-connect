@@ -4,7 +4,7 @@ const sql = require('mssql');
 const pool = new sql.ConnectionPool({
   user: process.env.MSSQLUSER2,
   password: process.env.MSSQLPASSWORD2,
-  server: 'localhost\\SQLEXPRESS',
+  server: process.env.MSSQLHOST2,
   database: process.env.MSSQLDATABASE2,
   options: {
     encrypt: false,
@@ -23,16 +23,6 @@ const pool = new sql.ConnectionPool({
     console.log('Database error ->', err.message);
   }
 })();
-
-// Pool function
-async function msPool() {
-  try {
-    const db = await pool.connect();
-    return db;
-  } catch (err) {
-    console.log('Database error -> ', err.message);
-  }
-}
 
 // Test query
 (async function () {
