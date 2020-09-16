@@ -11,6 +11,7 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+// Test connection
 (async function () {
   try {
     const db = await pool.getConnection();
@@ -21,6 +22,7 @@ const pool = mysql.createPool({
   }
 })();
 
+// Test query
 (async function () {
   try {
     const [rows] = await pool.query('SELECT NOW()');

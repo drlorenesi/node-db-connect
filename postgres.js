@@ -3,6 +3,7 @@ const { Pool } = require('pg');
 
 const pool = new Pool();
 
+// Test connection
 (async function () {
   try {
     const db = await pool.connect();

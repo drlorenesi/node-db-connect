@@ -2,32 +2,35 @@ require('dotenv').config();
 const sql = require('mssql');
 
 const pool = new sql.ConnectionPool({
-  user: process.env.MSSQLUSER,
-  password: process.env.MSSQLPASSWORD,
-  server: process.env.MSSQLHOST,
-  database: process.env.GRANADA20,
+  user: process.env.MSSQLUSER2,
+  password: process.env.MSSQLPASSWORD2,
+  server: 'localhost\\SQLEXPRESS',
+  database: process.env.MSSQLDATABASE2,
   options: {
     encrypt: false,
     enableArithAbort: true,
   },
 });
-const db = pool.connect();
 
-pool.on('error', (err) => {
-  if (err) {
-    console.log('The following error ocurred: ', err);
-    return;
-  }
-});
-
-async function messageHandler() {
-  await db; // ensures that the pool has been created
+// Test connection
+(async function () {
   try {
-    const request = pool.request(); // or: new sql.Request(pool1)
-    const result = await request.query('select 1 as number');
-    console.dir(result);
+    const db = await pool.connect();
+    console.log(`- Connected to ${db.config.database} on ${db.config.server}`);
+    db.release();
   } catch (err) {
-    console.error('SQL error', err);
+    // console.error('Database error -> ', err.message);
+    console.log('Database error ->', err.message);
   }
-}
-messageHandler();
+})();
+
+// Test query
+(async function () {
+  try {
+    const db = await pool.connect();
+    const { recordset } = await db.query('SELECT GETDATE()');
+    console.log(recordset);
+  } catch (err) {
+    console.log('Database error -> ', err.message);
+  }
+})();
