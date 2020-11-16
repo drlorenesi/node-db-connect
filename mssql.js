@@ -19,7 +19,6 @@ const pool = new sql.ConnectionPool({
     console.log(`- Connected to ${db.config.database} on ${db.config.server}`);
     db.release();
   } catch (err) {
-    // console.error('Database error -> ', err.message);
     console.log('Database error ->', err.message);
   }
 })();
