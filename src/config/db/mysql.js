@@ -1,6 +1,10 @@
 require("dotenv").config(); // Required to run 'seed' script
 const mysql = require("mysql2/promise");
 
+// Check open connections on server
+// SHOW VARIABLES LIKE 'max_connections';
+// SHOW STATUS WHERE `variable_name` = 'Threads_connected';
+
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
