@@ -32,7 +32,7 @@ async function query(sql) {
   try {
     const [rows, fields] = await pool.query(sql);
     const duration = Date.now() - start;
-    return { rows, fields, duration };
+    return { rows, fields, duration: `${duration} ms` };
   } catch (err) {
     console.log("Database error:", err.message);
     throw new Error(err);
@@ -46,7 +46,7 @@ async function execute(sql, params) {
   try {
     const [rows, fields] = await pool.execute(sql, params);
     const duration = Date.now() - start;
-    return { rows, fields, duration };
+    return { rows, fields, duration: `${duration} ms` };
   } catch (err) {
     console.log("Database error:", err.message);
     throw new Error(err);

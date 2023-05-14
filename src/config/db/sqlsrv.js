@@ -1,5 +1,5 @@
-// https://www.npmjs.com/package/mssql
-const { ConnectionPool } = require('mssql');
+require("dotenv").config(); // Required to run 'seed' script
+const { ConnectionPool } = require("mssql");
 
 const pool = new ConnectionPool({
   user: process.env.SQLSRV_USER,
@@ -23,21 +23,23 @@ async function sqlsrvConnect() {
     const db = await pool.connect();
     console.log(`- Connected to ${db.config.database} on ${db.config.server}`);
   } catch (err) {
-    console.error('Database connection error:', err.message);
+    console.error("Database connection error:", err.message);
+    throw new Error(err);
   }
 }
 
 // Write async queries as:
-// const { duration, rows, rowsAffected } = await query(`SELECT NOW()`);
+// const { rows, rowsAffected, duration, } = await query(`SELECT NOW()`);
 async function query(sql) {
   try {
     const start = Date.now();
     await pool.connect();
     const { recordset: rows, rowsAffected } = await pool.query(sql);
     const duration = Date.now() - start;
-    return { duration: `${duration} ms`, rows, rowsAffected: rowsAffected[0] };
+    return { rows, rowsAffected: rowsAffected[0], duration: `${duration} ms` };
   } catch (err) {
-    console.log('Database error:', err.message);
+    console.log("Database error:", err.message);
+    throw new Error(err);
   }
 }
 
