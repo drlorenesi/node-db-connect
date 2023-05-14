@@ -22,36 +22,34 @@ async function mysqlConnect() {
     console.error("Database connection error:", err.message);
     throw new Error(err);
   }
-  // const config = pool.pool.config.connectionConfig;
-  // try {
-  //   console.log(`- Connected to ${config.database} on ${config.host}`);
-  // } catch (error) {
-  //   console.error("Database connection error:", err.message);
-  //   throw new Error(error);
-  // }
 }
 
 // Query function
 // const data = await query(`SELECT NOW()`);
-// const { rows, fields } = await query(`SELECT NOW()`);
+// const { rows, fields, duration  } = await query(`SELECT NOW()`);
 async function query(sql) {
+  const start = Date.now();
   try {
     const [rows, fields] = await pool.query(sql);
-    return { rows, fields };
+    const duration = Date.now() - start;
+    return { rows, fields, duration };
   } catch (err) {
     console.log("Database error:", err.message);
+    throw new Error(err);
   }
 }
 
 // Execute function
-// const data = await execute(`SELECT NOW()`);
-// const { rows, fields } = await execute(`SELECT NOW()`);
+// const { rows, fields, duration  } = await execute(`SELECT NOW()`);
 async function execute(sql, params) {
+  const start = Date.now();
   try {
     const [rows, fields] = await pool.execute(sql, params);
-    return { rows, fields };
-  } catch (error) {
-    console.log("Database erroror:", error.message);
+    const duration = Date.now() - start;
+    return { rows, fields, duration };
+  } catch (err) {
+    console.log("Database error:", err.message);
+    throw new Error(err);
   }
 }
 
