@@ -1,0 +1,46 @@
+{
+  "name": "node-db-connect",
+  "version": "1.0.0",
+  "description": "Database Connection Modules for Node.js",
+  "main": "index.js",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start": "ENTORNO=produccion node ./src/server.js",
+    "dev": "ENTORNO=desarrollo nodemon ./src/server.js",
+    "test": "ENTORNO=testing jest --watchAll --verbose --coverage --detectOpenHandles",
+    "seed": "node ./setup/seedData.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drlorenesi/node-db-connect.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drlorenesi/node-db-connect/issues"
+  },
+  "homepage": "https://github.com/drlorenesi/node-db-connect#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^6.0.1",
+    "joi": "^17.4.1",
+    "mongoose": "^6.8.3",
+    "morgan": "^1.10.0",
+    "mssql": "^9.0.1",
+    "mysql2": "^3.3.1",
+    "pg": "^8.8.0",
+    "postgres": "^3.3.3",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.1.6"
+  }
+}
